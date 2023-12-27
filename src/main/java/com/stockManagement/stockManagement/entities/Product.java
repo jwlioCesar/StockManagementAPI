@@ -3,31 +3,47 @@ package com.stockManagement.stockManagement.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "tb_product")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, length = 100)
     private String name;
     @Column(nullable = false)
     private Integer quantity;
     @Column(nullable = false)
-    private String price;
+    private BigDecimal price;
+    @Column(nullable = false)
+    private BigDecimal totalValue;
 
-    public Product(Long id, String name, Integer quantity, String price) {
+    private BigDecimal generateTotalValue() {
+        return price.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    public Product() {
+    }
+
+    public Product(Long id, String name, Integer quantity, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public Product(String name, Integer quantity, String price) {
+    public Product(String name, Integer quantity, BigDecimal price) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        this.totalValue = generateTotalValue();
+    }
+
+    public BigDecimal getTotalValue() {
+        return totalValue;
     }
 
     public Long getId() {
@@ -54,11 +70,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

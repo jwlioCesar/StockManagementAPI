@@ -1,10 +1,14 @@
 package com.stockManagement.stockManagement.controllers;
 
 import com.stockManagement.stockManagement.dto.request.ProductRegisterRequestDto;
+import com.stockManagement.stockManagement.dto.response.ProductRegisterResponseDto;
 import com.stockManagement.stockManagement.entities.Product;
 import com.stockManagement.stockManagement.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/product")
@@ -17,18 +21,27 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity findProducts(){
+    public ResponseEntity<List<Product>> findProducts(){
         return ResponseEntity.ok().body(productService.findAllProducts());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findProductById(@PathVariable Long id){
+    public ResponseEntity<Optional<Product>> findProductById(@PathVariable Long id){
         return ResponseEntity.ok().body(productService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity postProduct(@RequestBody ProductRegisterRequestDto product){
+    public ResponseEntity<ProductRegisterResponseDto> postProduct(@RequestBody ProductRegisterRequestDto product){
         return ResponseEntity.ok().body(productService.addProduct(product));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id){
+        return ResponseEntity.ok().body(productService.deleteProduct(id));
+    }
+
+    @PutMapping
+    public ResponseEntity changeProduct(@RequestBody ProductRegisterRequestDto request){
+        return ResponseEntity.ok().body(productService.alterProduct(request));
+    }
 }

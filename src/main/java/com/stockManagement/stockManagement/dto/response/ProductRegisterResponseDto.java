@@ -1,4 +1,6 @@
 package com.stockManagement.stockManagement.dto.response;
 
-public record ProductRegisterResponseDto(String name, Integer quantity, String price) {
+import java.math.BigDecimal;
+
+public record ProductRegisterResponseDto(String name, Integer quantity, BigDecimal price, BigDecimal totalValue) {
 }

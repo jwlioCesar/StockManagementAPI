@@ -30,6 +30,27 @@ public class ProductService {
     public ProductRegisterResponseDto addProduct(ProductRegisterRequestDto request){
         Product product = new Product(request.name(), request.quantity(), request.price());
         productRepository.save(product);
-        return new ProductRegisterResponseDto(product.getName(), product.getQuantity(), product.getPrice());
+        return new ProductRegisterResponseDto(product.getName(), product.getQuantity(), product.getPrice(), product.getTotalValue());
     }
+
+    public ProductRegisterResponseDto alterProduct(ProductRegisterRequestDto request){
+        Product product = new Product(request.name(), request.quantity(), request.price());
+        productRepository.save(product);
+        return new ProductRegisterResponseDto(product.getName(), product.getQuantity(), product.getPrice(), product.getTotalValue());
+    }
+
+    public String deleteProduct(Long id) {
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            productRepository.delete(product);
+            return "Produto removido com sucesso";
+        } else {
+            return "Produto não encontrado";
+        }
+    }
+
+
+
 }
