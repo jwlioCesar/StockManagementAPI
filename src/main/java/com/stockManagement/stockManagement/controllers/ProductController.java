@@ -4,6 +4,7 @@ import com.stockManagement.stockManagement.dto.request.ProductRegisterRequestDto
 import com.stockManagement.stockManagement.dto.response.ProductRegisterResponseDto;
 import com.stockManagement.stockManagement.entities.Product;
 import com.stockManagement.stockManagement.services.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +37,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long id){
-        return ResponseEntity.ok().body(productService.deleteProduct(id));
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping
