@@ -2,9 +2,11 @@ package com.stockManagement.stockManagement.controllers;
 
 import com.stockManagement.stockManagement.dto.request.ProductChangeRequestDto;
 import com.stockManagement.stockManagement.dto.request.ProductEntryRequestDto;
+import com.stockManagement.stockManagement.dto.request.ProductOutputRequestDto;
 import com.stockManagement.stockManagement.dto.request.ProductRegisterRequestDto;
 import com.stockManagement.stockManagement.dto.response.ProductChangeResponseDto;
 import com.stockManagement.stockManagement.dto.response.ProductEntryResponseDto;
+import com.stockManagement.stockManagement.dto.response.ProductOutputResponseDto;
 import com.stockManagement.stockManagement.dto.response.ProductRegisterResponseDto;
 import com.stockManagement.stockManagement.entities.Product;
 import com.stockManagement.stockManagement.services.ProductService;
@@ -54,5 +56,10 @@ public class ProductController {
     @PutMapping("/entry")
     public ResponseEntity<ProductEntryResponseDto> productEntry(@RequestBody ProductEntryRequestDto request){
         return ResponseEntity.ok().body(productService.productEntry(request));
+    }
+
+    @PutMapping("/output")
+    public ResponseEntity<ProductOutputResponseDto> productOutput(@RequestBody ProductOutputRequestDto request){
+        return ResponseEntity.ok().body(productService.productOutput(request));
     }
 }
