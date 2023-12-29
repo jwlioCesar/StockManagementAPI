@@ -68,6 +68,7 @@ public class Product {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+        this.totalValue = generateTotalValue();
     }
 
     public BigDecimal getPrice() {
@@ -76,6 +77,7 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+        this.totalValue = generateTotalValue();
     }
 
 

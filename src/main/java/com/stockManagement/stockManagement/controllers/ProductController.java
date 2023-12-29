@@ -1,6 +1,8 @@
 package com.stockManagement.stockManagement.controllers;
 
+import com.stockManagement.stockManagement.dto.request.ProductChangeRequestDto;
 import com.stockManagement.stockManagement.dto.request.ProductRegisterRequestDto;
+import com.stockManagement.stockManagement.dto.response.ProductChangeResponseDto;
 import com.stockManagement.stockManagement.dto.response.ProductRegisterResponseDto;
 import com.stockManagement.stockManagement.entities.Product;
 import com.stockManagement.stockManagement.services.ProductService;
@@ -43,7 +45,7 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity changeProduct(@RequestBody ProductRegisterRequestDto request){
-        return ResponseEntity.ok().body(productService.alterProduct(request));
+    public ResponseEntity<ProductChangeResponseDto> changeProduct(@RequestBody ProductChangeRequestDto request){
+        return ResponseEntity.ok().body(productService.updateProduct(request));
     }
 }
