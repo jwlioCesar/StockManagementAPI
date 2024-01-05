@@ -1,6 +1,7 @@
 package com.stockManagement.stockManagement.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -14,7 +15,10 @@ public class WebSecurityConfig {
         http.csrf((csrf) -> csrf.disable());
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.GET).permitAll()
+                .requestMatchers(HttpMethod.POST).permitAll()
+                .requestMatchers(HttpMethod.DELETE).permitAll()
+                .requestMatchers(HttpMethod.PUT).permitAll());
 
         return http.build();
     }

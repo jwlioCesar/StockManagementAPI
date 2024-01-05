@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_user")
@@ -19,6 +21,9 @@ public class User implements UserDetails{
     private String email;
     @Column(nullable = false)
     private String password;
+
+    @ManyToMany
+    private List<Role> roles = new ArrayList<>();
 
     @Transient
     private boolean enable = true;
@@ -35,7 +40,7 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     @Override
